@@ -99,27 +99,28 @@ class CommentUpdateView(CommentEditMixin, LoginRequiredMixin, UpdateView):
 class AuthorProfileListView(ListView):
     model = Post
     template_name = 'blog/profile.html'
-    
+
     paginate_by = PAGINATED_BY
-    
 
     def get_queryset(self):
         # Получаем автора
         author = get_object_or_404(User, username=self.kwargs['username'])
-        
+
         # Добавляем подсчет комментариев
-        posts = author.posts.annotate(comment_count=Count('comments')).order_by('-pub_date')
-        
+        posts = author.posts.annotate(
+            comment_count=Count('comments')).order_by('-pub_date')
+
         # Фильтруем только опубликованные посты для других пользователей
         if self.request.user != author:
             posts = filter_published_posts(posts)
-        
+
         return posts
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Добавляем автора в контекст
-        context['profile'] = get_object_or_404(User, username=self.kwargs['username'])
+        context['profile'] = get_object_or_404(
+            User, username=self.kwargs['username'])
         return context
 
 
