@@ -1,40 +1,35 @@
 from django import forms
-from django.utils import timezone   
+from django.utils import timezone
 
-from .models import Post, Comment
+from .models import Comment, Post
 
-class PostForm(forms.ModelForm):
+
+class CreatePostForm(forms.ModelForm):
     pub_date = forms.DateTimeField(
         initial=timezone.now,
         required=True,
         widget=forms.DateTimeInput(
             attrs={
-                "type": "datetime-local",
+                'type': 'datetime-local',
             },
-            format="%Y-%m-%dT%H:%M",
+            format='%Y-%m-%dT%H:%M',
         ),
     )
- 
 
     class Meta:
-
-        # Указываем модель, на основе которой должна строиться форма.
         model = Post
-        # Указываем, что надо отобразить все поля.
         fields = (
-            
-            "title",
-            "image",
-            "text",
-            "pub_date",
-            "location",
-            "category",
-            "is_published",
+            'title',
+            'image',
+            'text',
+            'pub_date',
+            'location',
+            'category',
+            'is_published',
         )
 
-            
-        
-class CommentForm(forms.ModelForm):
+
+class CreateCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ("text",)
