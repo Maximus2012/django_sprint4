@@ -65,6 +65,10 @@ python3 manage.py runserver
 ## Review
 
 
-https://github.com/user-attachments/assets/858318e2-610e-436e-a01b-a5edfa66b1d8
+
+https://github.com/user-attachments/assets/c9e535b7-62f6-425f-8d32-46cb59bde77e
+
+
+
 
 
